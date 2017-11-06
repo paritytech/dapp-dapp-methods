@@ -17,7 +17,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { CheckboxTickedIcon, CheckboxUntickedIcon } from '@parity/ui/Icons';
+import { CheckboxTickedIcon, CheckboxUntickedIcon } from '@parity/ui/lib/Icons';
 
 export default function MethodCheck ({ checked, dappId, method, onToggle }) {
   const _onClick = () => onToggle(method, dappId);
