@@ -14,28 +14,4 @@
 // You should have received a copy of the GNU General Public License
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import { CheckboxTickedIcon, CheckboxUntickedIcon } from '@parity/ui/lib/Icons';
-
-export default function MethodCheck ({ checked, dappId, method, onToggle }) {
-  const _onClick = () => onToggle(method, dappId);
-
-  return (
-    <div onClick={ _onClick }>
-      {
-        checked
-          ? <CheckboxTickedIcon />
-          : <CheckboxUntickedIcon />
-      }
-    </div>
-  );
-}
-
-MethodCheck.propTypes = {
-  checked: PropTypes.bool.isRequired,
-  dappId: PropTypes.string.isRequired,
-  method: PropTypes.string.isRequired,
-  onToggle: PropTypes.func.isRequired
-};
+export default from './DappCard';
