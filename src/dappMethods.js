@@ -19,12 +19,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
+import { Card } from 'semantic-ui-react';
 import { Page } from '@parity/ui';
 
-import Store from './store';
+import DappCard from './DappCard';
 
-import MethodCheck from './MethodCheck';
-import styles from './dappMethods.css';
+import Store from './store';
 
 @observer
 export default class SelectMethods extends Component {
@@ -32,12 +32,23 @@ export default class SelectMethods extends Component {
     api: PropTypes.object.isRequired
   };
 
+  state = {
+    selectedDapp: null
+  };
+
   store = new Store(this.context.api);
+
+  handleSelectDapp = id => {
+    if (this.state.selectedDapp === id) {
+      this.setState({ selectedDapp: null });
+    } else {
+      this.setState({ selectedDapp: id });
+    }
+  };
 
   render () {
     return (
       <Page
-        className={ styles.body }
         title={
           <FormattedMessage
             id='dapps.methods.label'
@@ -45,46 +56,21 @@ export default class SelectMethods extends Component {
           />
         }
       >
-        <table>
-          <thead>
-            <tr>
-              <th>&nbsp;</th>
-              {
-                this.store.methods.map((method, methodIndex) => (
-                  <th key={ methodIndex }>
-                    <div>
-                      <span>{ method }</span>
-                    </div>
-                  </th>
-                ))
-              }
-            </tr>
-          </thead>
-          <tbody>
-            {
-              this.store.apps.map(({ id, name }, dappIndex) => (
-                <tr key={ dappIndex }>
-                  <td>{ name }</td>
-                  {
-                    this.store.methods.map((method, methodIndex) => (
-                      <td
-                        className={ styles.check }
-                        key={ `${dappIndex}_${methodIndex}` }
-                      >
-                        <MethodCheck
-                          checked={ this.store.hasAppPermission(method, id) }
-                          dappId={ id }
-                          method={ method }
-                          onToggle={ this.store.toggleAppPermission }
-                        />
-                      </td>
-                    ))
-                  }
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
+        <Card.Group stackable>
+          {this.store.apps.map((dapp, index) => (
+            <DappCard
+              key={ index }
+              editingMode={ dapp.id === this.state.selectedDapp }
+              dapp={ dapp }
+              methods={ this.store.methods }
+              allowed={ this.store.methods.filter(method =>
+                this.store.hasAppPermission(method, dapp.id)
+              ) }
+              onEdit={ () => this.handleSelectDapp(dapp.id) }
+              onToggle={ this.store.toggleAppPermission }
+            />
+          ))}
+        </Card.Group>
       </Page>
     );
   }

@@ -19,16 +19,14 @@ import React from 'react';
 import { Route, Router, hashHistory } from 'react-router';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
 
-import ContractInstances from '@parity/shared/lib/contracts';
 import { initStore } from '@parity/shared/lib/redux';
 import ContextProvider from '@parity/ui/lib/ContextProvider';
 
 import api from './api';
 import DappMethods from './dappMethods';
 
-ContractInstances.get(api);
+injectTapEventPlugin();
 
 const store = initStore(api, hashHistory);
 
