@@ -11,6 +11,11 @@
   margin-bottom: -15px !important;
 }
 
+.list {
+  max-height: 250px;
+  overflow-y: scroll;
+}
+
 .item {
   cursor: pointer;
 }

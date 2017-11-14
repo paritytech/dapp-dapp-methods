@@ -40382,6 +40382,11 @@ i.dappCard_image_HgWeXwAC1O {
   margin-bottom: -15px !important;
 }
 
+.DappCard_list_1At3Vs3V5c {
+  max-height: 250px;
+  overflow-y: scroll;
+}
+
 .DappCard_item_2Bijjpf-gX {
   cursor: pointer;
 }

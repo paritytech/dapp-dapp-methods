@@ -80,7 +80,7 @@ export default class DappCard extends PureComponent {
     const { allowed } = this.props;
 
     return (
-      <List bulleted>
+      <List bulleted className={ styles.list }>
         {allowed.length ? (
           allowed.map((method, methodIndex) => (
             <List.Item key={ methodIndex }>{method}</List.Item>
