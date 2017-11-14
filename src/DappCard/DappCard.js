@@ -15,37 +15,100 @@
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, { PureComponent } from 'react';
-import { Card, Image, List } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import { Button, Card, Image, List } from 'semantic-ui-react';
 import { observer } from 'mobx-react';
 import { FormattedMessage } from 'react-intl';
 
+import { CheckboxTickedIcon, CheckboxUntickedIcon } from '@parity/ui/lib/Icons';
 import styles from './DappCard.css';
-import Store from '../store';
 
 @observer
 export default class DappCard extends PureComponent {
-  static propTypes = {};
-
-  state = {
-    active: false
+  static propTypes = {
+    allowed: PropTypes.array.isRequired,
+    dapp: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      image: PropTypes.string
+    }).isRequired,
+    editingMode: PropTypes.bool,
+    methods: PropTypes.object.isRequired,
+    onEdit: PropTypes.func.isRequired,
+    onToggle: PropTypes.func.isRequired
   };
 
-  handleMakeActive = active => this.setState({ active: true });
+  state = {
+    hovered: false
+  };
 
-  handleMakeInctive = active => this.setState({ active: false });
+  handleMakeHovered = hovered => this.setState({ hovered: true });
 
-  render () {
-    const { dapp, permissions } = this.props;
+  handleMakeNotHovered = hovered => this.setState({ hovered: false });
+
+  renderEditingMode = () => {
+    const { dapp, methods, allowed, onToggle } = this.props;
+
+    // Create a map of allowed methods for faster access
+    const allowedMap = {};
+
+    allowed.forEach(permission => (allowedMap[permission] = true));
 
     return (
-      <Card
-        link
-        color={ this.state.active ? 'blue' : null }
-        onMouseEnter={ this.handleMakeActive }
-        onMouseLeave={ this.handleMakeInctive }
-      >
+      <List>
+        {methods.map((method, methodIndex) => (
+          <List.Item
+            key={ methodIndex }
+            className={ styles.item }
+            onClick={ () => onToggle(method, dapp.id) }
+          >
+            <List.Icon>
+              {allowedMap[method] ? (
+                <CheckboxTickedIcon />
+              ) : (
+                <CheckboxUntickedIcon />
+              )}
+            </List.Icon>
+            {method}
+          </List.Item>
+        ))}
+      </List>
+    );
+  };
+
+  renderViewMode = () => {
+    const { allowed } = this.props;
+
+    return (
+      <List bulleted>
+        {allowed.length ? (
+          allowed.map((method, methodIndex) => (
+            <List.Item key={ methodIndex }>{method}</List.Item>
+          ))
+        ) : (
+          <List.Item>
+            <FormattedMessage id='dapps.methods.none' defaultMessage='None' />
+          </List.Item>
+        )}
+      </List>
+    );
+  };
+
+  render () {
+    const { dapp, editingMode, onEdit } = this.props;
+
+    return (
+      <Card>
         <Card.Content>
-          <Image src={ dapp.image } className={ styles.icon } centered />
+          <Button
+            floated='right'
+            basic
+            size='mini'
+            icon={ editingMode ? 'remove' : 'edit' }
+            className={ styles.edit }
+            onClick={ onEdit }
+          />
+          <Image src={ dapp.image } className={ styles.picture } centered />
           <Card.Header>{dapp.name}</Card.Header>
           <Card.Meta>{dapp.description}</Card.Meta>
           <Card.Description>
@@ -53,20 +116,7 @@ export default class DappCard extends PureComponent {
               id='dapps.methods.allowedMethods'
               defaultMessage='Allowed Methods'
             />:
-            {permissions.length ? (
-              <List bulleted>
-                {permissions.map((method, methodIndex) => (
-                  <List.Item key={ methodIndex }>{method}</List.Item>
-                ))}
-              </List>
-            ) : (
-              <p>
-                <FormattedMessage
-                  id='dapps.methods.none'
-                  defaultMessage='None'
-                />
-              </p>
-            )}
+            {editingMode ? this.renderEditingMode() : this.renderViewMode()}
           </Card.Description>
         </Card.Content>
       </Card>
