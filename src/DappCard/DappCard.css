@@ -1,0 +1,25 @@
+.picture {
+  display: block !important;
+  clear: right;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.edit {
+  margin-bottom: -15px !important;
+}
+
+.list {
+  max-height: 250px;
+  overflow-y: scroll;
+}
+
+.item {
+  cursor: pointer;
+}
+
+.item:hover {
+  opacity: 0.8;
+}
