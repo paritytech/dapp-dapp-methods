@@ -38,14 +38,6 @@ export default class DappCard extends PureComponent {
     onToggle: PropTypes.func.isRequired
   };
 
-  state = {
-    hovered: false
-  };
-
-  handleMakeHovered = hovered => this.setState({ hovered: true });
-
-  handleMakeNotHovered = hovered => this.setState({ hovered: false });
-
   renderEditingMode = () => {
     const { dapp, methods, allowed, onToggle } = this.props;
 
