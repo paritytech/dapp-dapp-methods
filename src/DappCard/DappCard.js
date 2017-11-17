@@ -17,14 +17,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, Image, List } from 'semantic-ui-react';
-import { observer } from 'mobx-react';
 import { FormattedMessage } from 'react-intl';
 
 import { CheckboxTickedIcon, CheckboxUntickedIcon } from '@parity/ui/lib/Icons';
 import { arrayOrObjectProptype } from '@parity/shared/lib/util/proptypes';
 import styles from './DappCard.css';
 
-@observer
 export default class DappCard extends PureComponent {
   static propTypes = {
     allowed: PropTypes.array.isRequired,
@@ -51,9 +49,9 @@ export default class DappCard extends PureComponent {
       <List>
         {methods.map((method, methodIndex) => (
           <List.Item
-            key={ methodIndex }
-            className={ styles.item }
-            onClick={ () => onToggle(method, dapp.id) }
+            className={styles.item}
+            key={methodIndex}
+            onClick={() => onToggle(method, dapp.id)}
           >
             <List.Icon>
               {allowedMap[method] ? (
@@ -73,41 +71,43 @@ export default class DappCard extends PureComponent {
     const { allowed } = this.props;
 
     return (
-      <List bulleted className={ styles.list }>
+      <List bulleted className={styles.compactList}>
         {allowed.length ? (
           allowed.map((method, methodIndex) => (
-            <List.Item key={ methodIndex }>{method}</List.Item>
+            <List.Item className={styles.item} key={methodIndex}>
+              {method}
+            </List.Item>
           ))
         ) : (
           <List.Item>
-            <FormattedMessage id='dapps.methods.none' defaultMessage='None' />
+            <FormattedMessage id="dapps.methods.none" defaultMessage="None" />
           </List.Item>
         )}
       </List>
     );
   };
 
-  render () {
+  render() {
     const { dapp, editingMode, onEdit } = this.props;
 
     return (
       <Card>
         <Card.Content>
           <Button
-            floated='right'
+            floated="right"
             basic
-            size='mini'
-            icon={ editingMode ? 'remove' : 'edit' }
-            className={ styles.edit }
-            onClick={ onEdit }
+            size="mini"
+            icon={editingMode ? 'remove' : 'edit'}
+            className={styles.editButton}
+            onClick={onEdit}
           />
-          <Image src={ dapp.image } className={ styles.picture } centered />
+          <Image src={dapp.image} className={styles.picture} centered />
           <Card.Header>{dapp.name}</Card.Header>
           <Card.Meta>{dapp.description}</Card.Meta>
           <Card.Description>
             <FormattedMessage
-              id='dapps.methods.allowedMethods'
-              defaultMessage='Allowed Methods'
+              id="dapps.methods.allowedMethods"
+              defaultMessage="Allowed Methods"
             />:
             {editingMode ? this.renderEditingMode() : this.renderViewMode()}
           </Card.Description>
