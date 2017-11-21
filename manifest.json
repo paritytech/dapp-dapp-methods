@@ -4,5 +4,6 @@
   "description": "Dapp for Parity",
   "author": "Parity Team <admin@parity.io>",
   "version": "1.99.99",
-  "iconUrl": ""
+  "iconUrl": "",
+  "localUrl": "http://localhost:3001"
 }

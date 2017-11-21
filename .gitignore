@@ -9,9 +9,6 @@
 # production
 /build
 
-# hmr files
-/hot
-
 # misc
 .DS_Store
 .env.local
