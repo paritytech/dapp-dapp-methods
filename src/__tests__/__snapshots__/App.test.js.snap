@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly 1`] = `
+<div>
+  <Actionbar
+    title={
+      <FormattedMessage
+        defaultMessage="Allowed methods"
+        id="dapps.methods.title"
+        values={Object {}}
+      />
+    }
+  />
+  <CardGroup
+    stackable={true}
+  >
+    <DappCard
+      dapp={
+        Object {
+          "id": "123",
+          "name": "123",
+        }
+      }
+      editingMode={false}
+      key="0"
+      methodGroups={
+        Object {
+          "shell": Object {
+            "methods": Array [
+              "foo",
+              "bar",
+            ],
+          },
+        }
+      }
+      onEdit={[Function]}
+      onToggle={[Function]}
+      permissions={
+        Object {
+          "foo:123": true,
+        }
+      }
+    />
+    <DappCard
+      dapp={
+        Object {
+          "id": "456",
+          "name": "456",
+        }
+      }
+      editingMode={false}
+      key="1"
+      methodGroups={
+        Object {
+          "shell": Object {
+            "methods": Array [
+              "foo",
+              "bar",
+            ],
+          },
+        }
+      }
+      onEdit={[Function]}
+      onToggle={[Function]}
+      permissions={
+        Object {
+          "foo:123": true,
+        }
+      }
+    />
+  </CardGroup>
+</div>
+`;
+
+exports[`should render correctly when a dapp is selected 1`] = `
+<div>
+  <Actionbar
+    title={
+      <FormattedMessage
+        defaultMessage="Allowed methods"
+        id="dapps.methods.title"
+        values={Object {}}
+      />
+    }
+  />
+  <CardGroup
+    stackable={true}
+  >
+    <DappCard
+      dapp={
+        Object {
+          "id": "123",
+          "name": "123",
+        }
+      }
+      editingMode={false}
+      key="0"
+      methodGroups={
+        Object {
+          "shell": Object {
+            "methods": Array [
+              "foo",
+              "bar",
+            ],
+          },
+        }
+      }
+      onEdit={[Function]}
+      onToggle={[Function]}
+      permissions={
+        Object {
+          "foo:123": true,
+        }
+      }
+    />
+    <DappCard
+      dapp={
+        Object {
+          "id": "456",
+          "name": "456",
+        }
+      }
+      editingMode={true}
+      key="1"
+      methodGroups={
+        Object {
+          "shell": Object {
+            "methods": Array [
+              "foo",
+              "bar",
+            ],
+          },
+        }
+      }
+      onEdit={[Function]}
+      onToggle={[Function]}
+      permissions={
+        Object {
+          "foo:123": true,
+        }
+      }
+    />
+  </CardGroup>
+</div>
+`;

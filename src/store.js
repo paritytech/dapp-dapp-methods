@@ -14,60 +14,64 @@
 // You should have received a copy of the GNU General Public License
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
-import { action, observable } from 'mobx';
+import { action, extendObservable } from 'mobx';
+
+export const getPermissionId = (method, appId) => `${method}:${appId}`;
 
 export default class Store {
-  @observable apps= [];
-  @observable methods = [];
-  @observable permissions = {};
-
-  constructor (api) {
+  constructor(api) {
     this._api = api;
+
+    // Using mobx without @observable decorators
+    extendObservable(this, {
+      apps: [],
+      methodGroups: {},
+      permissions: {}
+    });
 
     this.loadInitialise();
   }
 
-  @action setApps = (apps) => {
+  setApps = action(apps => {
     this.apps = apps;
-  }
+  });
 
-  @action setMethods = (methods) => {
-    this.methods = methods;
-  }
+  setMethodGroups = action(methodGroups => {
+    this.methodGroups = methodGroups;
+  });
 
-  @action setPermissions = (permissions) => {
+  setPermissions = action(permissions => {
     this.permissions = permissions;
-  }
+  });
 
-  @action toggleAppPermission = (method, appId) => {
-    const id = `${method}:${appId}`;
+  toggleAppPermission = action((method, appId) => {
+    const id = getPermissionId(method, appId);
 
-    this.permissions = Object.assign({}, this.permissions, {
+    this.permissions = {
+      ...this.permissions,
       [id]: !this.permissions[id]
-    });
+    };
 
     this.savePermissions();
-  }
+  });
 
   hasAppPermission = (method, appId) => {
-    return this.permissions[`${method}:${appId}`] || false;
-  }
+    return !!this.permissions[getPermissionId(method, appId)];
+  };
 
   loadInitialise = () => {
-    return Promise
-      .all([
-        this._api.shell.getApps(false),
-        this._api.shell.getFilteredMethods(),
-        this._api.shell.getMethodPermissions()
-      ])
-      .then(([apps, methods, permissions]) => {
-        this.setApps(apps);
-        this.setMethods(methods);
-        this.setPermissions(permissions);
-      });
-  }
+    return Promise.all([
+      this._api.shell.getApps(false),
+      this._api.shell.getMethodGroups(),
+      this._api.shell.getMethodPermissions()
+    ]).then(([apps, methodGroups, permissions]) => {
+      this.setApps(apps);
+      this.setMethodGroups(methodGroups);
+      this.setPermissions(permissions);
+    });
+  };
 
   savePermissions = () => {
     this._api.shell.setMethodPermissions(this.permissions);
-  }
+  };
 }
