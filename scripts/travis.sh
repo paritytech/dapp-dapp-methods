@@ -37,9 +37,9 @@ PACKAGE_VERSION=$(cat package.json \
   | awk -F: '{ print $2 }' \
   | sed 's/[",]//g')
 
-git clone https://github.com/dist-${TRAVIS_REPO_SLUG}-dist.git dist
+git clone https://github.com/js-dist-${TRAVIS_REPO_SLUG}.git dist
 cd dist
-git remote set-url origin https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}-dist.git > /dev/null 2>&1
+git remote set-url origin https://${GH_TOKEN}@github.com/js-dist-${TRAVIS_REPO_SLUG}.git > /dev/null 2>&1
 git checkout $TRAVIS_BRANCH
 rm -rf static
 cp -rf ../build/ .
