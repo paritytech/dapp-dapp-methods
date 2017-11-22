@@ -51,9 +51,9 @@ class App extends Component {
           }
         />
         <Card.Group stackable className={styles.cardGroup}>
-          {store.apps.map(dapp => (
+          {store.apps.map((dapp, index) => (
             <DappCard
-              key={dapp.id}
+              key={index}
               editingMode={dapp.id === this.state.selectedDapp}
               dapp={dapp}
               methodGroups={store.methodGroups}
