@@ -31,6 +31,7 @@
     "start": "react-scripts start",
     "watch": "node scripts/watch.js",
     "build": "react-scripts build",
+    "lint": "eslint src/**/*.js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
