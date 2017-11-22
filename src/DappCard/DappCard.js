@@ -104,7 +104,6 @@ class DappCard extends PureComponent {
       .map(group => ({
         title: {
           key: `${dapp.id}-${group}-title`,
-          active: true,
           content: <FormattedMessage {...messages[group]} />
         },
         content: {

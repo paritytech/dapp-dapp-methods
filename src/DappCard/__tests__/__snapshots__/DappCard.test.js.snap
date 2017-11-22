@@ -107,7 +107,6 @@ exports[`should render correctly in viewing mode 1`] = `
                 "key": "123-shell-content",
               },
               "title": Object {
-                "active": true,
                 "content": <FormattedMessage
                   defaultMessage="Can get access to the Shell"
                   description="Explanation of the shell methodGroup permission"
