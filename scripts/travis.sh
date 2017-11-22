@@ -41,8 +41,10 @@ git clone https://github.com/js-dist-${TRAVIS_REPO_SLUG}.git dist
 cd dist
 git remote set-url origin https://${GH_TOKEN}@github.com/js-dist-${TRAVIS_REPO_SLUG}.git > /dev/null 2>&1
 git checkout $TRAVIS_BRANCH
-rm -rf static
-cp -rf ../build/ .
+rm -rf build static
+cd ../build
+cp -rf . ../dist
+cd ../dist
 cp -f ../icon.png ../package.json .
 sed "s/VERSION/$PACKAGE_VERSION/" < ../manifest.json >manifest.json
 git add .
