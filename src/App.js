@@ -23,15 +23,12 @@ import Card from 'semantic-ui-react/dist/commonjs/views/Card';
 import ActionBar from '@parity/ui/lib/Actionbar/actionbar';
 
 import DappCard from './DappCard';
-import Store from './store';
 import styles from './App.css';
 
 class App extends Component {
   state = {
     selectedDapp: null
   };
-
-  store = new Store(this.context.api);
 
   handleSelectDapp = id => {
     if (this.state.selectedDapp === id) {
@@ -42,6 +39,7 @@ class App extends Component {
   };
 
   render() {
+    const { store } = this.props;
     return (
       <div className={styles.layout}>
         <ActionBar
@@ -53,15 +51,15 @@ class App extends Component {
           }
         />
         <Card.Group stackable className={styles.cardGroup}>
-          {this.store.apps.map((dapp, index) => (
+          {store.apps.map(dapp => (
             <DappCard
-              key={index}
+              key={dapp.id}
               editingMode={dapp.id === this.state.selectedDapp}
               dapp={dapp}
-              methodGroups={this.store.methodGroups}
-              permissions={this.store.permissions}
+              methodGroups={store.methodGroups}
+              permissions={store.permissions}
               onEdit={() => this.handleSelectDapp(dapp.id)}
-              onToggle={this.store.toggleAppPermission}
+              onToggle={store.toggleAppPermission}
             />
           ))}
         </Card.Group>
@@ -72,6 +70,6 @@ class App extends Component {
 
 export default observer(App);
 
-App.contextTypes = {
-  api: PropTypes.object.isRequired
+App.propTypes = {
+  store: PropTypes.object.isRequired
 };

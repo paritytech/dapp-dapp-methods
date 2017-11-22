@@ -19,11 +19,18 @@
       "target": "http://127.0.0.1:3000"
     }
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!<rootDir>/node_modules/",
+      "!src/registerServiceWorker.js"
+    ]
+  },
   "keywords": [],
   "scripts": {
     "start": "react-scripts start",
     "watch": "node scripts/watch.js",
-    "build": "rimraf dist  && react-scripts build && mv build dist",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
@@ -44,6 +51,8 @@
     "semantic-ui-react": "^0.76.0"
   },
   "devDependencies": {
-    "rimraf": "^2.6.2"
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.0",
+    "enzyme-to-json": "^3.2.2"
   }
 }

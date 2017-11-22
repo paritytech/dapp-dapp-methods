@@ -18,7 +18,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { toJS } from 'mobx';
 import { Accordion, Button, Card, Image, List } from 'semantic-ui-react';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import flatten from 'lodash/flatten';
 
 import { getPermissionId } from '../store';
@@ -32,7 +32,6 @@ class DappCard extends PureComponent {
       image: PropTypes.string
     }).isRequired,
     editingMode: PropTypes.bool,
-    intl: intlShape,
     methodGroups: PropTypes.object.isRequired,
     onEdit: PropTypes.func.isRequired,
     onToggle: PropTypes.func.isRequired,
@@ -40,22 +39,16 @@ class DappCard extends PureComponent {
   };
 
   renderEditingMode = () => {
-    const {
-      dapp,
-      methodGroups,
-      permissions,
-      onToggle,
-      intl: { formatMessage }
-    } = this.props;
+    const { dapp, methodGroups, permissions, onToggle } = this.props;
 
     const panels = Object.keys(methodGroups).map(group => ({
       title: {
         key: `${dapp.id}-${group}-editing-title`,
         active: true,
-        content: formatMessage(messages[group])
+        content: <FormattedMessage {...messages[group]} />
       },
       content: {
-        key: `${dapp.id}-${group}-editing`,
+        key: `${dapp.id}-${group}-editing-content`,
         active: true,
         content: (
           <List className={styles.editList}>
@@ -84,14 +77,10 @@ class DappCard extends PureComponent {
   };
 
   renderViewMode = () => {
-    const {
-      methodGroups,
-      permissions,
-      dapp,
-      intl: { formatMessage }
-    } = this.props;
+    const { methodGroups, permissions, dapp } = this.props;
 
     if (
+      !methodGroups ||
       !flatten(
         Object.values(toJS(methodGroups)).map(({ methods }) => methods)
       ).some(method => permissions[getPermissionId(method, dapp.id)])
@@ -113,9 +102,13 @@ class DappCard extends PureComponent {
         )
       )
       .map(group => ({
-        title: formatMessage(messages[group]),
+        title: {
+          key: `${dapp.id}-${group}-title`,
+          active: true,
+          content: <FormattedMessage {...messages[group]} />
+        },
         content: {
-          key: `${dapp.id}-${group}`,
+          key: `${dapp.id}-${group}-content`,
           content: (
             <List bulleted className={styles.list}>
               {methodGroups[group].methods.map(
@@ -158,7 +151,7 @@ class DappCard extends PureComponent {
   }
 }
 
-export default injectIntl(DappCard);
+export default DappCard;
 
 const messages = {
   shell: {
