@@ -24,7 +24,7 @@ import ActionBar from '@parity/ui/lib/Actionbar/actionbar';
 
 import DappCard from './DappCard';
 import Store from './store';
-import './App.css';
+import styles from './App.css';
 
 class App extends Component {
   state = {
@@ -43,25 +43,23 @@ class App extends Component {
 
   render() {
     return (
-      <div className="layout layout-padded">
+      <div className={styles.layout}>
         <ActionBar
           title={
             <FormattedMessage
-              id="dapps.methods.label"
+              id="dapps.methods.title"
               defaultMessage="Allowed methods"
             />
           }
         />
-        <Card.Group stackable className="card-group">
+        <Card.Group stackable className={styles.cardGroup}>
           {this.store.apps.map((dapp, index) => (
             <DappCard
               key={index}
               editingMode={dapp.id === this.state.selectedDapp}
               dapp={dapp}
-              methods={this.store.methods}
-              allowed={this.store.methods.filter(method =>
-                this.store.hasAppPermission(method, dapp.id)
-              )}
+              methodGroups={this.store.methodGroups}
+              permissions={this.store.permissions}
               onEdit={() => this.handleSelectDapp(dapp.id)}
               onToggle={this.store.toggleAppPermission}
             />

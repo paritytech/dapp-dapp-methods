@@ -15,20 +15,12 @@
 /* along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-.layout,
-.layout-padded {
+:local(.layout) {
   background: #fcfcfc;
-}
-
-.layout {
-  padding: 0 1.5em 3em;
-}
-
-.layout-padded {
   padding: 0.5em 1.5em 3em;
 }
 
-.card-group {
+:local(.cardGroup) {
   display: flex;
   justify-content: center;
 }

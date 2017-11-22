@@ -16,75 +16,120 @@
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Card, Image, List } from 'semantic-ui-react';
-import { FormattedMessage } from 'react-intl';
+import { toJS } from 'mobx';
+import { Accordion, Button, Card, Image, List } from 'semantic-ui-react';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import flatten from 'lodash/flatten';
 
-import { CheckboxTickedIcon, CheckboxUntickedIcon } from '@parity/ui/lib/Icons';
-import { arrayOrObjectProptype } from '@parity/shared/lib/util/proptypes';
+import { getPermissionId } from '../store';
 import styles from './DappCard.css';
 
-export default class DappCard extends PureComponent {
+class DappCard extends PureComponent {
   static propTypes = {
-    allowed: PropTypes.array.isRequired,
     dapp: PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       image: PropTypes.string
     }).isRequired,
     editingMode: PropTypes.bool,
-    methods: arrayOrObjectProptype().isRequired,
+    intl: intlShape,
+    methodGroups: PropTypes.object.isRequired,
     onEdit: PropTypes.func.isRequired,
-    onToggle: PropTypes.func.isRequired
+    onToggle: PropTypes.func.isRequired,
+    permissions: PropTypes.object.isRequired
   };
 
   renderEditingMode = () => {
-    const { dapp, methods, allowed, onToggle } = this.props;
+    const {
+      dapp,
+      methodGroups,
+      permissions,
+      onToggle,
+      intl: { formatMessage }
+    } = this.props;
 
-    // Create a map of allowed methods for faster access
-    const allowedMap = {};
+    const panels = Object.keys(methodGroups).map(group => ({
+      title: {
+        key: `${dapp.id}-${group}-editing-title`,
+        active: true,
+        content: formatMessage(messages[group])
+      },
+      content: {
+        key: `${dapp.id}-${group}-editing`,
+        active: true,
+        content: (
+          <List className={styles.editList}>
+            {methodGroups[group].methods.map(method => (
+              <List.Item
+                key={method}
+                onClick={() => onToggle(method, dapp.id)}
+                className={styles.editListItem}
+              >
+                <List.Icon
+                  name={
+                    permissions[getPermissionId(method, dapp.id)]
+                      ? 'checkmark box'
+                      : 'square outline'
+                  }
+                />
+                {method}
+              </List.Item>
+            ))}
+          </List>
+        )
+      }
+    }));
 
-    allowed.forEach(permission => (allowedMap[permission] = true));
-
-    return (
-      <List>
-        {methods.map((method, methodIndex) => (
-          <List.Item
-            className={styles.item}
-            key={methodIndex}
-            onClick={() => onToggle(method, dapp.id)}
-          >
-            <List.Icon>
-              {allowedMap[method] ? (
-                <CheckboxTickedIcon />
-              ) : (
-                <CheckboxUntickedIcon />
-              )}
-            </List.Icon>
-            {method}
-          </List.Item>
-        ))}
-      </List>
-    );
+    return <Accordion panels={panels} />;
   };
 
   renderViewMode = () => {
-    const { allowed } = this.props;
+    const {
+      methodGroups,
+      permissions,
+      dapp,
+      intl: { formatMessage }
+    } = this.props;
 
-    return (
-      <List bulleted className={styles.compactList}>
-        {allowed.length ? (
-          allowed.map((method, methodIndex) => (
-            <List.Item className={styles.item} key={methodIndex}>
-              {method}
-            </List.Item>
-          ))
-        ) : (
-          <List.Item>
-            <FormattedMessage id="dapps.methods.none" defaultMessage="None" />
-          </List.Item>
-        )}
-      </List>
-    );
+    if (
+      !flatten(
+        Object.values(toJS(methodGroups)).map(({ methods }) => methods)
+      ).some(method => permissions[getPermissionId(method, dapp.id)])
+    ) {
+      return (
+        <div className={styles.noAllowedMethods}>
+          <FormattedMessage
+            id="dapps.methods.noAllowedMethods"
+            defaultMessage="No allowed methods"
+          />
+        </div>
+      );
+    }
+
+    const panels = Object.keys(methodGroups)
+      .filter(group =>
+        methodGroups[group].methods.some(
+          method => permissions[getPermissionId(method, dapp.id)]
+        )
+      )
+      .map(group => ({
+        title: formatMessage(messages[group]),
+        content: {
+          key: `${dapp.id}-${group}`,
+          content: (
+            <List bulleted className={styles.list}>
+              {methodGroups[group].methods.map(
+                method =>
+                  permissions[getPermissionId(method, dapp.id)] && (
+                    <List.Item key={method}>{method}</List.Item>
+                  )
+              )}
+            </List>
+          )
+        }
+      }));
+
+    return <Accordion panels={panels} />;
   };
 
   render() {
@@ -105,10 +150,6 @@ export default class DappCard extends PureComponent {
           <Card.Header>{dapp.name}</Card.Header>
           <Card.Meta>{dapp.description}</Card.Meta>
           <Card.Description>
-            <FormattedMessage
-              id="dapps.methods.allowedMethods"
-              defaultMessage="Allowed Methods"
-            />:
             {editingMode ? this.renderEditingMode() : this.renderViewMode()}
           </Card.Description>
         </Card.Content>
@@ -116,3 +157,43 @@ export default class DappCard extends PureComponent {
     );
   }
 }
+
+export default injectIntl(DappCard);
+
+const messages = {
+  shell: {
+    id: 'dapp.methods.shell',
+    description: 'Explanation of the shell methodGroup permission',
+    defaultMessage: 'Can get access to the Shell'
+  },
+  accountsView: {
+    id: 'dapp.methods.accountsView',
+    description: 'Explanation of the accountsView methodGroup permission',
+    defaultMessage: 'Can view your Parity accounts'
+  },
+  accountsCreate: {
+    id: 'dapp.methods.accountsCreate',
+    description: 'Explanation of the accountsCreate methodGroup permission',
+    defaultMessage: 'Can create new Parity accounts'
+  },
+  accountsEdit: {
+    id: 'dapp.methods.accountsEdit',
+    description: 'Explanation of the accountsEdit methodGroup permission',
+    defaultMessage: 'Can edit your Parity accounts'
+  },
+  upgrade: {
+    id: 'dapp.methods.upgrade',
+    description: 'Explanation of the upgrade methodGroup permission',
+    defaultMessage: 'Can upgrade Parity'
+  },
+  vaults: {
+    id: 'dapp.methods.vaults',
+    description: 'Explanation of the vaults methodGroup permission',
+    defaultMessage: 'Can get access to your vaults'
+  },
+  other: {
+    id: 'dapp.methods.other',
+    description: 'Explanation of the other methodGroup permission',
+    defaultMessage: 'Other permissions'
+  }
+};

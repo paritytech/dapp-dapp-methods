@@ -16,6 +16,8 @@
 
 import { action, extendObservable } from 'mobx';
 
+export const getPermissionId = (method, appId) => `${method}:${appId}`;
+
 export default class Store {
   constructor(api) {
     this._api = api;
@@ -23,7 +25,7 @@ export default class Store {
     // Using mobx without @observable decorators
     extendObservable(this, {
       apps: [],
-      methods: [],
+      methodGroups: {},
       permissions: {}
     });
 
@@ -34,8 +36,8 @@ export default class Store {
     this.apps = apps;
   });
 
-  setMethods = action(methods => {
-    this.methods = methods;
+  setMethodGroups = action(methodGroups => {
+    this.methodGroups = methodGroups;
   });
 
   setPermissions = action(permissions => {
@@ -43,27 +45,28 @@ export default class Store {
   });
 
   toggleAppPermission = action((method, appId) => {
-    const id = `${method}:${appId}`;
+    const id = getPermissionId(method, appId);
 
-    this.permissions = Object.assign({}, this.permissions, {
+    this.permissions = {
+      ...this.permissions,
       [id]: !this.permissions[id]
-    });
+    };
 
     this.savePermissions();
   });
 
   hasAppPermission = (method, appId) => {
-    return this.permissions[`${method}:${appId}`] || false;
+    return !!this.permissions[getPermissionId(method, appId)];
   };
 
   loadInitialise = () => {
     return Promise.all([
       this._api.shell.getApps(false),
-      this._api.shell.getFilteredMethods(),
+      this._api.shell.getMethodGroups(),
       this._api.shell.getMethodPermissions()
-    ]).then(([apps, methods, permissions]) => {
+    ]).then(([apps, methodGroups, permissions]) => {
       this.setApps(apps);
-      this.setMethods(methods);
+      this.setMethodGroups(methodGroups);
       this.setPermissions(permissions);
     });
   };

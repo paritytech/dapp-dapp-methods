@@ -15,4 +15,5 @@
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
 import DappCard from './DappCard';
+
 export default DappCard;

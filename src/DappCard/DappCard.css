@@ -28,15 +28,22 @@
   margin-bottom: -15px !important;
 }
 
-:local(.compactList) {
-  max-height: 250px;
-  overflow-y: scroll;
+:local(.noAllowedMethods) {
+  text-align: center;
 }
 
-:local(.item) {
+:local(.list) {
+  margin-left: 40px !important;
+}
+
+:local(.editList) {
+  margin-left: 24px !important;
+}
+
+:local(.editListItem) {
   cursor: pointer;
 }
 
-:local(.item:hover) {
+:local(.editListItem:hover) {
   opacity: 0.8;
 }
