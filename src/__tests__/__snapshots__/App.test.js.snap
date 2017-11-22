@@ -22,7 +22,7 @@ exports[`should render correctly 1`] = `
         }
       }
       editingMode={false}
-      key="123"
+      key="0"
       methodGroups={
         Object {
           "shell": Object {
@@ -49,7 +49,7 @@ exports[`should render correctly 1`] = `
         }
       }
       editingMode={false}
-      key="456"
+      key="1"
       methodGroups={
         Object {
           "shell": Object {
@@ -94,7 +94,7 @@ exports[`should render correctly when a dapp is selected 1`] = `
         }
       }
       editingMode={false}
-      key="123"
+      key="0"
       methodGroups={
         Object {
           "shell": Object {
@@ -121,7 +121,7 @@ exports[`should render correctly when a dapp is selected 1`] = `
         }
       }
       editingMode={true}
-      key="456"
+      key="1"
       methodGroups={
         Object {
           "shell": Object {
