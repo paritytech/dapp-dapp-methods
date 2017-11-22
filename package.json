@@ -1,7 +1,7 @@
 {
   "name": "@parity/dapp-dapp-methods",
   "description": "Parity default dapp method selection",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "index.js",
   "author": "Parity Team <admin@parity.io>",
   "maintainers": [],
