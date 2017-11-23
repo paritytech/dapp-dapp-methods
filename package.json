@@ -1,7 +1,7 @@
 {
   "name": "@parity/dapp-dapp-methods",
   "description": "Parity default dapp method selection",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "main": "index.js",
   "author": "Parity Team <admin@parity.io>",
   "maintainers": [],
@@ -11,6 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/paritytech/dapp-dapp-methods.git"
   },
+  "homepage": "./",
   "proxy": {
     "/parity-utils": {
       "target": "http://127.0.0.1:3000"
