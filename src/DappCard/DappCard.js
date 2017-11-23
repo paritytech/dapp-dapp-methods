@@ -17,7 +17,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { toJS } from 'mobx';
-import { Accordion, Button, Card, Image, List } from 'semantic-ui-react';
+import { Accordion, Button, Card, List } from 'semantic-ui-react';
+import DappIcon from '@parity/ui/lib/DappIcon';
 import { FormattedMessage } from 'react-intl';
 import flatten from 'lodash/flatten';
 
@@ -138,7 +139,10 @@ class DappCard extends PureComponent {
             className={styles.editButton}
             onClick={onEdit}
           />
-          <Image src={dapp.image} className={styles.picture} centered />
+          <DappIcon
+            app={dapp}
+            className={`ui image centered ${styles.picture}`}
+          />
           <Card.Header>{dapp.name}</Card.Header>
           <Card.Meta>{dapp.description}</Card.Meta>
           <Card.Description>
