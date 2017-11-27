@@ -11,10 +11,14 @@ exports[`should render correctly in editing mode 1`] = `
       onClick={[Function]}
       size="mini"
     />
-    <Image
-      as="img"
-      centered={true}
-      ui={true}
+    <DappIcon
+      app={
+        Object {
+          "id": "123",
+          "name": "Test",
+        }
+      }
+      className="ui image centered undefined"
     />
     <CardHeader>
       Test
@@ -81,10 +85,14 @@ exports[`should render correctly in viewing mode 1`] = `
       onClick={[Function]}
       size="mini"
     />
-    <Image
-      as="img"
-      centered={true}
-      ui={true}
+    <DappIcon
+      app={
+        Object {
+          "id": "123",
+          "name": "Test",
+        }
+      }
+      className="ui image centered undefined"
     />
     <CardHeader>
       Test
@@ -135,10 +143,14 @@ exports[`should render correctly in viewing mode with no allowed methods 1`] = `
       onClick={[Function]}
       size="mini"
     />
-    <Image
-      as="img"
-      centered={true}
-      ui={true}
+    <DappIcon
+      app={
+        Object {
+          "id": "123",
+          "name": "Test",
+        }
+      }
+      className="ui image centered undefined"
     />
     <CardHeader>
       Test

@@ -14,28 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
-import ReactDOM from 'react-dom';
-import React from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import { IntlProvider } from 'react-intl';
-import ContextProvider from '@parity/ui/lib/ContextProvider';
+test('should throw an error if no ethereumProvider', () => {
+  expect(() => {
+    require('../api');
+  }).toThrow('Unable to locate EthereumProvider, object not attached');
+});
 
-import api from './api';
-import App from './App';
-import Store from './store';
-import registerServiceWorker from './registerServiceWorker';
-import 'semantic-ui-css/semantic.min.css';
-
-injectTapEventPlugin();
-registerServiceWorker();
-
-const store = new Store(api);
-
-ReactDOM.render(
-  <ContextProvider api={api}>
-    <IntlProvider locale="en">
-      <App store={store} />
-    </IntlProvider>
-  </ContextProvider>,
-  document.querySelector('#root')
-);
+test('should return correct api if ethereumProvider is provided', () => {
+  global.ethereum = { send: () => {} };
+  const api = require('../api');
+  expect(api).toEqual({});
+});

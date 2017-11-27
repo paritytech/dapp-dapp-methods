@@ -15,12 +15,14 @@
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { shallowToJson } from 'enzyme-to-json';
 import { Button, List } from 'semantic-ui-react';
 
 import { shallowWithIntl, mountWithIntl } from '../../setupTests';
 import DappCard from '../DappCard';
 
+const mockApi = {};
 const props = {
   dapp: {
     id: '123',
@@ -66,7 +68,11 @@ test('should handle onToggle click', () => {
   const onToggle = jest.fn();
 
   const component = mountWithIntl(
-    <DappCard {...props} editingMode onToggle={onToggle} />
+    <DappCard {...props} editingMode onToggle={onToggle} />,
+    {
+      context: { api: mockApi },
+      childContextTypes: { api: PropTypes.object.isRequired }
+    }
   );
 
   component
