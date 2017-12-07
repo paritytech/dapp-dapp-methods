@@ -15,7 +15,7 @@
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
 import { toJS } from 'mobx';
-import Store from '../store';
+import Store, { getPermissionId } from '../store';
 
 const mock = {
   apps: [
@@ -82,14 +82,37 @@ test('should handle hasAppPermission', () => {
   expect(store.hasAppPermission('foo', '123')).toBe(true);
 });
 
-test('should handle toggleAppPermission and call setMethodPermissions', () => {
-  const setMethodPermissions = jest.fn();
-  const store = new Store({
-    shell: { ...mock.api.shell, setMethodPermissions }
-  });
+test('should handle toggleAppPermission and call savePermissions', () => {
+  const savePermissions = jest.fn();
+  const store = new Store(mock.api);
+  store.savePermissions = savePermissions;
+
   store.setPermissions(mock.permissions);
   store.toggleAppPermission('foo', '123');
 
-  expect(toJS(store.permissions)).toEqual({ 'foo:123': false });
-  expect(setMethodPermissions).toHaveBeenCalledWith({ 'foo:123': false });
+  expect(savePermissions).toHaveBeenCalledWith({ 'foo:123': false });
+});
+
+test('should handle savePermissions', () => {
+  const setMethodPermissions = jest.fn(() => Promise.resolve());
+  const store = new Store({
+    shell: {
+      ...mock.api.shell,
+      setMethodPermissions
+    }
+  });
+
+  store.savePermissions(mock.permissions);
+
+  expect(setMethodPermissions).toHaveBeenCalledWith(mock.permissions);
+});
+
+test('should show the hex if appId is not a hex', () => {
+  const dappId = 'dapp-abc';
+  const dappIdHex =
+    '0xaec5435e0fb17e6bc52710ef3957f530010d0dc56e8fd6d94650d9a6563f6d44'; // sha3('dapp-abc')
+  const method = 'setMethodPermissions';
+
+  expect(getPermissionId(method, dappId)).toBe(`${method}:${dappIdHex}`);
+  expect(getPermissionId(method, dappIdHex)).toBe(`${method}:${dappIdHex}`);
 });
