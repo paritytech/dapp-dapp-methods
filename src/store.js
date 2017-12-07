@@ -15,8 +15,12 @@
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
 import { action, extendObservable } from 'mobx';
+import { sha3 } from '@parity/api/lib/util/sha3';
+import { isHex } from '@parity/api/lib/util/types';
 
-export const getPermissionId = (method, appId) => `${method}:${appId}`;
+// Create an id to identify permissions based on method and appId
+export const getPermissionId = (method, appId) =>
+  `${method}:${isHex(appId) ? appId : sha3(appId)}`;
 
 export default class Store {
   constructor(api) {
@@ -47,12 +51,8 @@ export default class Store {
   toggleAppPermission = action((method, appId) => {
     const id = getPermissionId(method, appId);
 
-    this.permissions = {
-      ...this.permissions,
-      [id]: !this.permissions[id]
-    };
-
-    this.savePermissions();
+    // Save this change to the shell
+    this.savePermissions({ [id]: !this.permissions[id] });
   });
 
   hasAppPermission = (method, appId) => {
@@ -63,15 +63,23 @@ export default class Store {
     return Promise.all([
       this._api.shell.getApps(false),
       this._api.shell.getMethodGroups(),
-      this._api.shell.getMethodPermissions()
-    ]).then(([apps, methodGroups, permissions]) => {
+      this.loadPermissions()
+    ]).then(([apps, methodGroups]) => {
       this.setApps(apps);
       this.setMethodGroups(methodGroups);
-      this.setPermissions(permissions);
     });
   };
 
-  savePermissions = () => {
-    this._api.shell.setMethodPermissions(this.permissions);
-  };
+  loadPermissions = () =>
+    this._api.shell.getMethodPermissions().then(this.setPermissions);
+
+  savePermissions = permissions =>
+    this._api.shell.setMethodPermissions(permissions).then(
+      // Load all permissions again after saving. It's overkill, as most of the
+      // time only the recently toggled permission will differ. However,
+      // it may happen the there's a shell_setMethodPermissions request for
+      // dapp-dapp-methods, which will not be taken into account if we only
+      // toggled this.permissions[permissionId].
+      this.loadPermissions
+    );
 }
