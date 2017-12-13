@@ -30,16 +30,26 @@ class App extends Component {
     selectedDapp: null
   };
 
-  handleSelectDapp = id => {
-    if (this.state.selectedDapp === id) {
+  handleSelectDapp = appId => {
+    if (this.state.selectedDapp === appId) {
       this.setState({ selectedDapp: null });
     } else {
-      this.setState({ selectedDapp: id });
+      this.setState({ selectedDapp: appId });
+    }
+  };
+
+  handleToggleAppPermissions = (method, appId) => {
+    const { dappsPermissionsStore } = this.props;
+    if (dappsPermissionsStore.hasAppPermission(method, appId)) {
+      dappsPermissionsStore.removeAppPermission(method, appId);
+    } else {
+      dappsPermissionsStore.addAppPermission(method, appId);
     }
   };
 
   render() {
-    const { store } = this.props;
+    const { dappsStore, dappsPermissionsStore } = this.props;
+
     return (
       <Page
         title={
@@ -50,15 +60,14 @@ class App extends Component {
         }
       >
         <Card.Group stackable className={styles.cardGroup}>
-          {store.apps.map((dapp, index) => (
+          {dappsStore.apps.map((dapp, index) => (
             <DappCard
               key={index}
               editingMode={dapp.id === this.state.selectedDapp}
               dapp={dapp}
-              methodGroups={store.methodGroups}
-              permissions={store.permissions}
-              onEdit={() => this.handleSelectDapp(dapp.id)}
-              onToggle={store.toggleAppPermission}
+              dappsPermissionsStore={dappsPermissionsStore}
+              onEdit={this.handleSelectDapp}
+              onToggle={this.handleToggleAppPermissions}
             />
           ))}
         </Card.Group>
@@ -70,5 +79,5 @@ class App extends Component {
 export default observer(App);
 
 App.propTypes = {
-  store: PropTypes.object.isRequired
+  dappsStore: PropTypes.object.isRequired
 };

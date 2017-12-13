@@ -40,7 +40,6 @@
   },
   "dependencies": {
     "@parity/api": "^2.1.5",
-    "@parity/shared": "^2.2.7",
     "@parity/ui": "^3.0.7",
     "lodash": "^4.17.4",
     "mobx": "^3.3.2",

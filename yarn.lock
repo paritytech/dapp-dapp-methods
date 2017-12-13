@@ -87,25 +87,6 @@
     useragent.js "^0.5.6"
     yargs "6.6.0"
 
-"@parity/shared@^2.2.7":
-  version "2.2.7"
-  resolved "https://registry.yarnpkg.com/@parity/shared/-/shared-2.2.7.tgz#3c6cfeb9e9536035a4e1767294f2da890f213dc7"
-  dependencies:
-    "@parity/ledger" "2.1.x"
-    eventemitter3 "^2.0.3"
-    loglevel "1.4.1"
-    mobx "2.6.4"
-    mobx-react "4.0.3"
-    push.js "0.0.11"
-    react-redux "4.4.6"
-    redux "3.6.0"
-    redux-actions "1.1.0"
-    redux-thunk "2.1.0"
-    scryptsy "2.0.0"
-    solc ngotchac/solc-js
-    useragent.js "^0.5.6"
-    yargs "6.6.0"
-
 "@parity/ui@^3.0.7":
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/@parity/ui/-/ui-3.0.7.tgz#fb98c81a5349970983b4c3014ad31d405a96757a"
@@ -4410,9 +4391,9 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
-"jsqr@git+https://github.com/cozmo/jsQR.git":
+"jsqr@https://github.com/cozmo/jsQR.git":
   version "0.2.2"
-  resolved "git+https://github.com/cozmo/jsQR.git#397a6eb8f90752cf640cb4bb67ba6f86e3bb5d1f"
+  resolved "https://github.com/cozmo/jsQR.git#397a6eb8f90752cf640cb4bb67ba6f86e3bb5d1f"
 
 jsx-ast-utils@^1.4.0:
   version "1.4.1"
@@ -6870,7 +6851,7 @@ sockjs@0.3.18:
     faye-websocket "^0.10.0"
     uuid "^2.0.2"
 
-"solc@github:ngotchac/solc-js", solc@ngotchac/solc-js:
+solc@ngotchac/solc-js:
   version "0.4.4"
   resolved "https://codeload.github.com/ngotchac/solc-js/tar.gz/04eb38cc3003fba8cb3656653a7941ed36408818"
   dependencies:
