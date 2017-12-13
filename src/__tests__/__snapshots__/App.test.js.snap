@@ -1,16 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render correctly 1`] = `
-<div>
-  <Actionbar
-    title={
-      <FormattedMessage
-        defaultMessage="Allowed methods"
-        id="dapps.methods.title"
-        values={Object {}}
-      />
-    }
-  />
+<Page
+  title={
+    <FormattedMessage
+      defaultMessage="Allowed methods"
+      id="dapps.methods.title"
+      values={Object {}}
+    />
+  }
+>
   <CardGroup
     stackable={true}
   >
@@ -69,20 +68,19 @@ exports[`should render correctly 1`] = `
       }
     />
   </CardGroup>
-</div>
+</Page>
 `;
 
 exports[`should render correctly when a dapp is selected 1`] = `
-<div>
-  <Actionbar
-    title={
-      <FormattedMessage
-        defaultMessage="Allowed methods"
-        id="dapps.methods.title"
-        values={Object {}}
-      />
-    }
-  />
+<Page
+  title={
+    <FormattedMessage
+      defaultMessage="Allowed methods"
+      id="dapps.methods.title"
+      values={Object {}}
+    />
+  }
+>
   <CardGroup
     stackable={true}
   >
@@ -141,5 +139,5 @@ exports[`should render correctly when a dapp is selected 1`] = `
       }
     />
   </CardGroup>
-</div>
+</Page>
 `;

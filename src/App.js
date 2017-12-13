@@ -19,8 +19,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
+import Page from '@parity/ui/lib/Page';
 import Card from 'semantic-ui-react/dist/commonjs/views/Card';
-import ActionBar from '@parity/ui/lib/Actionbar/actionbar';
 
 import DappCard from './DappCard';
 import styles from './App.css';
@@ -41,15 +41,14 @@ class App extends Component {
   render() {
     const { store } = this.props;
     return (
-      <div className={styles.layout}>
-        <ActionBar
-          title={
-            <FormattedMessage
-              id="dapps.methods.title"
-              defaultMessage="Allowed methods"
-            />
-          }
-        />
+      <Page
+        title={
+          <FormattedMessage
+            id="dapps.methods.title"
+            defaultMessage="Allowed methods"
+          />
+        }
+      >
         <Card.Group stackable className={styles.cardGroup}>
           {store.apps.map((dapp, index) => (
             <DappCard
@@ -63,7 +62,7 @@ class App extends Component {
             />
           ))}
         </Card.Group>
-      </div>
+      </Page>
     );
   }
 }
