@@ -16,7 +16,6 @@
 
 import ReactDOM from 'react-dom';
 import React from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import ContextProvider from '@parity/ui/lib/ContextProvider';
 
 import api from './api';
@@ -26,7 +25,6 @@ import DappsPermissionsStore from './lib/dapps/DappsPermissionsStore'; // TODO i
 import registerServiceWorker from './registerServiceWorker';
 import 'semantic-ui-css/semantic.min.css';
 
-injectTapEventPlugin();
 registerServiceWorker();
 
 const dappsStore = new DappsStore(api);
