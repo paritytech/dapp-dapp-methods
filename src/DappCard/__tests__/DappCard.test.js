@@ -18,18 +18,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { shallowToJson } from 'enzyme-to-json';
 import { Button, List } from 'semantic-ui-react';
+import DappsPermissionsStore from '@parity/mobx/lib/dapps/DappsPermissionsStore';
 
 import { shallowWithIntl, mountWithIntl } from '../../setupTests';
 import DappCard from '../DappCard';
 
-const mockApi = {};
+const mockPermissions = { 'shell_loadApp:123': true };
+const mockApi = {
+  shell: { getMethodPermissions: () => Promise.resolve(mockPermissions) }
+};
 const props = {
   dapp: {
     id: '123',
     name: 'Test'
   },
-  methodGroups: { shell: { methods: ['foo', 'bar'] } },
-  permissions: { 'foo:123': true },
+  dappsPermissionsStore: DappsPermissionsStore.get(mockApi),
   onEdit: () => {},
   onToggle: () => {}
 };
@@ -41,7 +44,15 @@ test('should render correctly in viewing mode', () => {
 });
 
 test('should render correctly in viewing mode with no allowed methods', () => {
-  const component = shallowWithIntl(<DappCard {...props} permissions={{}} />);
+  const dappsPermissionsStore = new DappsPermissionsStore({
+    shell: {
+      ...mockApi.shell,
+      getMethodPermissions: () => Promise.resolve({}) // Return {} from api
+    }
+  });
+  const component = shallowWithIntl(
+    <DappCard {...props} dappsPermissionsStore={dappsPermissionsStore} />
+  );
 
   expect(shallowToJson(component)).toMatchSnapshot();
 });
@@ -61,7 +72,7 @@ test('should handle onEdit button click', () => {
     .find(Button)
     .last()
     .simulate('click');
-  expect(onEdit).toHaveBeenCalled();
+  expect(onEdit).toHaveBeenCalledWith('123');
 });
 
 test('should handle onToggle click', () => {
@@ -77,8 +88,8 @@ test('should handle onToggle click', () => {
 
   component
     .find(List.Item)
-    .last() // The 'bar' one
+    .first() // The 1st one in methodGroup.js is 'shell_loadApp'
     .simulate('click');
 
-  expect(onToggle).toHaveBeenCalledWith('bar', '123');
+  expect(onToggle).toHaveBeenCalledWith('shell_loadApp', '123');
 });
