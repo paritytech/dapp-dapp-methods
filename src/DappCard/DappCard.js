@@ -19,8 +19,8 @@ import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { Accordion, Button, Card, List } from 'semantic-ui-react';
 import DappIcon from '@parity/ui/lib/DappIcon';
+import methodGroups, { allMethods } from '@parity/mobx/lib/methodGroups';
 import { FormattedMessage } from 'react-intl';
-import methodGroups, { allMethods } from '../lib/methodGroups'; // TODO import from '@parity/mobx';
 
 import styles from './DappCard.css';
 

@@ -59,7 +59,7 @@
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@parity/jsonrpc/-/jsonrpc-2.1.2.tgz#b72668ccfcdbc33674c23197940981d45fcab9f7"
 
-"@parity/ledger@2.1.x":
+"@parity/ledger@2.1.x", "@parity/ledger@^2.1.2":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@parity/ledger/-/ledger-2.1.2.tgz#d7f27b5c6084cda8dc38e1333454a67c752496a0"
   dependencies:
@@ -67,6 +67,13 @@
     ethereumjs-tx "^1.2.5"
     u2f-api "0.0.9"
     u2f-api-polyfill "0.4.3"
+
+"@parity/mobx@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@parity/mobx/-/mobx-1.0.1.tgz#0331f2076e4e757a2ff3a8e04dd5f4616fbafd3a"
+  dependencies:
+    "@parity/ledger" "^2.1.2"
+    babel-preset-env "^1.6.1"
 
 "@parity/shared@2.2.x":
   version "2.2.5"
@@ -956,7 +963,7 @@ babel-plugin-transform-strict-mode@^6.24.1:
     babel-runtime "^6.22.0"
     babel-types "^6.24.1"
 
-babel-preset-env@1.6.1:
+babel-preset-env@1.6.1, babel-preset-env@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/babel-preset-env/-/babel-preset-env-1.6.1.tgz#a18b564cc9b9afdf4aae57ae3c1b0d99188e6f48"
   dependencies:

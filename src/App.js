@@ -26,6 +26,10 @@ import DappCard from './DappCard';
 import styles from './App.css';
 
 class App extends Component {
+  static propTypes = {
+    dappsPermissionsStore: PropTypes.object.isRequired
+  };
+
   state = {
     selectedDapp: null
   };
@@ -77,7 +81,3 @@ class App extends Component {
 }
 
 export default observer(App);
-
-App.propTypes = {
-  dappsStore: PropTypes.object.isRequired
-};

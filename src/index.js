@@ -17,11 +17,11 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 import ContextProvider from '@parity/ui/lib/ContextProvider';
+import DappsStore from '@parity/mobx/lib/dapps/DappsStore';
+import DappsPermissionsStore from '@parity/mobx/lib/dapps/DappsPermissionsStore';
 
 import api from './api';
 import App from './App';
-import DappsStore from './lib/dapps/DappsStore'; // TODO import from '@parity/mobx'
-import DappsPermissionsStore from './lib/dapps/DappsPermissionsStore'; // TODO import from '@parity/mobx'
 import registerServiceWorker from './registerServiceWorker';
 import 'semantic-ui-css/semantic.min.css';
 
