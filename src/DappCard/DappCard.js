@@ -148,6 +148,7 @@ class DappCard extends Component {
           <DappIcon
             app={dapp}
             className={`ui image centered ${styles.picture}`}
+            size="small"
           />
           <Card.Header>{dapp.name}</Card.Header>
           <Card.Meta>{dapp.description}</Card.Meta>
