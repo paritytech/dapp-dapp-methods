@@ -20,25 +20,30 @@ exports[`should render correctly 1`] = `
           "name": "123",
         }
       }
+      dappsPermissionsStore={
+        DappsPermissionsStore {
+          "_api": Object {
+            "shell": Object {
+              "getApps": [Function],
+              "getMethodPermissions": [Function],
+              "setMethodPermissions": [Function],
+            },
+          },
+          "addAppPermission": [Function],
+          "error": null,
+          "hasAppPermission": [Function],
+          "loadPermissions": [Function],
+          "permissions": Object {
+            "shell_loadApp:123": true,
+          },
+          "removeAppPermission": [Function],
+          "savePermissions": [Function],
+        }
+      }
       editingMode={false}
       key="0"
-      methodGroups={
-        Object {
-          "shell": Object {
-            "methods": Array [
-              "foo",
-              "bar",
-            ],
-          },
-        }
-      }
       onEdit={[Function]}
       onToggle={[Function]}
-      permissions={
-        Object {
-          "foo:123": true,
-        }
-      }
     />
     <DappCard
       dapp={
@@ -47,25 +52,30 @@ exports[`should render correctly 1`] = `
           "name": "456",
         }
       }
+      dappsPermissionsStore={
+        DappsPermissionsStore {
+          "_api": Object {
+            "shell": Object {
+              "getApps": [Function],
+              "getMethodPermissions": [Function],
+              "setMethodPermissions": [Function],
+            },
+          },
+          "addAppPermission": [Function],
+          "error": null,
+          "hasAppPermission": [Function],
+          "loadPermissions": [Function],
+          "permissions": Object {
+            "shell_loadApp:123": true,
+          },
+          "removeAppPermission": [Function],
+          "savePermissions": [Function],
+        }
+      }
       editingMode={false}
       key="1"
-      methodGroups={
-        Object {
-          "shell": Object {
-            "methods": Array [
-              "foo",
-              "bar",
-            ],
-          },
-        }
-      }
       onEdit={[Function]}
       onToggle={[Function]}
-      permissions={
-        Object {
-          "foo:123": true,
-        }
-      }
     />
   </CardGroup>
 </Page>
@@ -91,25 +101,30 @@ exports[`should render correctly when a dapp is selected 1`] = `
           "name": "123",
         }
       }
+      dappsPermissionsStore={
+        DappsPermissionsStore {
+          "_api": Object {
+            "shell": Object {
+              "getApps": [Function],
+              "getMethodPermissions": [Function],
+              "setMethodPermissions": [Function],
+            },
+          },
+          "addAppPermission": [Function],
+          "error": null,
+          "hasAppPermission": [Function],
+          "loadPermissions": [Function],
+          "permissions": Object {
+            "shell_loadApp:123": true,
+          },
+          "removeAppPermission": [Function],
+          "savePermissions": [Function],
+        }
+      }
       editingMode={false}
       key="0"
-      methodGroups={
-        Object {
-          "shell": Object {
-            "methods": Array [
-              "foo",
-              "bar",
-            ],
-          },
-        }
-      }
       onEdit={[Function]}
       onToggle={[Function]}
-      permissions={
-        Object {
-          "foo:123": true,
-        }
-      }
     />
     <DappCard
       dapp={
@@ -118,25 +133,30 @@ exports[`should render correctly when a dapp is selected 1`] = `
           "name": "456",
         }
       }
+      dappsPermissionsStore={
+        DappsPermissionsStore {
+          "_api": Object {
+            "shell": Object {
+              "getApps": [Function],
+              "getMethodPermissions": [Function],
+              "setMethodPermissions": [Function],
+            },
+          },
+          "addAppPermission": [Function],
+          "error": null,
+          "hasAppPermission": [Function],
+          "loadPermissions": [Function],
+          "permissions": Object {
+            "shell_loadApp:123": true,
+          },
+          "removeAppPermission": [Function],
+          "savePermissions": [Function],
+        }
+      }
       editingMode={true}
       key="1"
-      methodGroups={
-        Object {
-          "shell": Object {
-            "methods": Array [
-              "foo",
-              "bar",
-            ],
-          },
-        }
-      }
       onEdit={[Function]}
       onToggle={[Function]}
-      permissions={
-        Object {
-          "foo:123": true,
-        }
-      }
     />
   </CardGroup>
 </Page>

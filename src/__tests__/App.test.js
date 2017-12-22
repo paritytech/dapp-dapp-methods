@@ -16,18 +16,26 @@
 
 import React from 'react';
 import { shallowToJson } from 'enzyme-to-json';
+import DappsPermissionsStore from '@parity/mobx/lib/dapps/DappsPermissionsStore';
+import DappsStore from '@parity/mobx/lib/dapps/DappsStore';
 
 import { shallowWithIntl } from '../setupTests';
 import App from '../App';
 import DappCard from '../DappCard';
 
-const props = {
-  store: {
-    apps: [{ id: '123', name: '123' }, { id: '456', name: '456' }],
-    methodGroups: { shell: { methods: ['foo', 'bar'] } },
-    permissions: { 'foo:123': true },
-    toggleAppPermission: () => {}
+const mockApps = [{ id: '123', name: '123' }, { id: '456', name: '456' }];
+const mockPermissions = { 'shell_loadApp:123': true };
+const mockApi = {
+  shell: {
+    getApps: () => Promise.resolve(mockApps),
+    getMethodPermissions: () => Promise.resolve(mockPermissions),
+    setMethodPermissions: () => Promise.resolve()
   }
+};
+
+const props = {
+  dappsPermissionsStore: DappsPermissionsStore.get(mockApi),
+  dappsStore: DappsStore.get(mockApi)
 };
 
 test('should render correctly', () => {
@@ -43,7 +51,7 @@ test('should select a dapp when we click on its edit button', () => {
     .find(DappCard)
     .last()
     .props()
-    .onEdit();
+    .onEdit('456');
 
   expect(component.state().selectedDapp).toEqual('456');
 });
@@ -63,22 +71,49 @@ test('should deselect a dapp when we click again on its edit button', () => {
     .find(DappCard)
     .last()
     .props()
-    .onEdit();
+    .onEdit('456');
 
   expect(component.state().selectedDapp).toEqual(null);
 });
 
-test('should call onToggleAppPermission when we toggle permission', () => {
-  const toggleAppPermission = jest.fn();
+test('should call removeAppPermission when clicking on an existing permission', () => {
+  const removeAppPermission = jest.fn();
+  const dappsPermissionsStore = new DappsPermissionsStore(mockApi);
+  dappsPermissionsStore.removeAppPermission = removeAppPermission;
   const component = shallowWithIntl(
-    <App store={{ ...props.store, toggleAppPermission }} />
+    <App {...props} dappsPermissionsStore={dappsPermissionsStore} />
   );
 
-  component
-    .find(DappCard)
-    .last()
-    .props()
-    .onToggle();
+  expect.assertions(1);
+  // Wait for store to load permissions before clicking on toggle DappCard
+  return dappsPermissionsStore.loadPermissions().then(() => {
+    component
+      .find(DappCard)
+      .first()
+      .props()
+      .onToggle('shell_loadApp', '123');
 
-  expect(toggleAppPermission).toHaveBeenCalled();
+    expect(removeAppPermission).toHaveBeenCalledWith('shell_loadApp', '123');
+  });
+});
+
+test('should call addAppPermission when clicking on a non-existing permission', () => {
+  const addAppPermission = jest.fn();
+  const dappsPermissionsStore = new DappsPermissionsStore(mockApi);
+  dappsPermissionsStore.addAppPermission = addAppPermission;
+  const component = shallowWithIntl(
+    <App {...props} dappsPermissionsStore={dappsPermissionsStore} />
+  );
+
+  expect.assertions(1);
+  // Wait for store to load permissions before clicking on toggle DappCard
+  return dappsPermissionsStore.loadPermissions().then(() => {
+    component
+      .find(DappCard)
+      .first()
+      .props()
+      .onToggle('shell_getApps', '123');
+
+    expect(addAppPermission).toHaveBeenCalledWith('shell_getApps', '123');
+  });
 });

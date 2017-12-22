@@ -16,26 +16,26 @@
 
 import ReactDOM from 'react-dom';
 import React from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import { IntlProvider } from 'react-intl';
 import ContextProvider from '@parity/ui/lib/ContextProvider';
+import DappsStore from '@parity/mobx/lib/dapps/DappsStore';
+import DappsPermissionsStore from '@parity/mobx/lib/dapps/DappsPermissionsStore';
 
 import api from './api';
 import App from './App';
-import Store from './store';
 import registerServiceWorker from './registerServiceWorker';
 import 'semantic-ui-css/semantic.min.css';
 
-injectTapEventPlugin();
 registerServiceWorker();
 
-const store = new Store(api);
+const dappsStore = DappsStore.get(api);
+const dappsPermissionsStore = DappsPermissionsStore.get(api);
 
 ReactDOM.render(
   <ContextProvider api={api}>
-    <IntlProvider locale="en">
-      <App store={store} />
-    </IntlProvider>
+    <App
+      dappsStore={dappsStore}
+      dappsPermissionsStore={dappsPermissionsStore}
+    />
   </ContextProvider>,
   document.querySelector('#root')
 );

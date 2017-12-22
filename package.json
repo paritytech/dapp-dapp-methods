@@ -1,6 +1,6 @@
 {
   "name": "@parity/dapp-dapp-methods",
-  "description": "Parity default dapp method selection",
+  "description": "Allow setting of dapp permissions on a per method level",
   "version": "2.0.7",
   "main": "index.js",
   "author": "Parity Team <admin@parity.io>",
@@ -39,24 +39,22 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@parity/api": "^2.1.5",
-    "@parity/shared": "^2.2.7",
-    "@parity/ui": "^3.0.7",
-    "lodash": "^4.17.4",
-    "mobx": "^3.3.2",
+    "@parity/api": "^2.1.14",
+    "@parity/mobx": "^1.0.4",
+    "@parity/ui": "^3.0.22",
+    "mobx": "^3.4.1",
     "mobx-react": "^4.3.5",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-intl": "^2.4.0",
     "react-scripts": "1.0.17",
-    "react-tap-event-plugin": "^3.0.2",
     "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.77.0"
+    "semantic-ui-react": "^0.77.1"
   },
   "devDependencies": {
     "enzyme": "^3.2.0",
-    "enzyme-adapter-react-16": "^1.1.0",
-    "enzyme-to-json": "^3.2.2"
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.0"
   }
 }

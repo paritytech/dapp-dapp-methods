@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
-import { observer } from 'mobx-react';
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
@@ -26,20 +26,34 @@ import DappCard from './DappCard';
 import styles from './App.css';
 
 class App extends Component {
+  static propTypes = {
+    dappsPermissionsStore: PropTypes.object.isRequired
+  };
+
   state = {
     selectedDapp: null
   };
 
-  handleSelectDapp = id => {
-    if (this.state.selectedDapp === id) {
+  handleSelectDapp = appId => {
+    if (this.state.selectedDapp === appId) {
       this.setState({ selectedDapp: null });
     } else {
-      this.setState({ selectedDapp: id });
+      this.setState({ selectedDapp: appId });
+    }
+  };
+
+  handleToggleAppPermissions = (method, appId) => {
+    const { dappsPermissionsStore } = this.props;
+    if (dappsPermissionsStore.hasAppPermission(method, appId)) {
+      dappsPermissionsStore.removeAppPermission(method, appId);
+    } else {
+      dappsPermissionsStore.addAppPermission(method, appId);
     }
   };
 
   render() {
-    const { store } = this.props;
+    const { dappsStore, dappsPermissionsStore } = this.props;
+
     return (
       <Page
         title={
@@ -50,15 +64,14 @@ class App extends Component {
         }
       >
         <Card.Group stackable className={styles.cardGroup}>
-          {store.apps.map((dapp, index) => (
+          {dappsStore.apps.map((dapp, index) => (
             <DappCard
               key={index}
               editingMode={dapp.id === this.state.selectedDapp}
               dapp={dapp}
-              methodGroups={store.methodGroups}
-              permissions={store.permissions}
-              onEdit={() => this.handleSelectDapp(dapp.id)}
-              onToggle={store.toggleAppPermission}
+              dappsPermissionsStore={dappsPermissionsStore}
+              onEdit={this.handleSelectDapp}
+              onToggle={this.handleToggleAppPermissions}
             />
           ))}
         </Card.Group>
@@ -68,7 +81,3 @@ class App extends Component {
 }
 
 export default observer(App);
-
-App.propTypes = {
-  store: PropTypes.object.isRequired
-};
