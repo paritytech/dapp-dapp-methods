@@ -19,6 +19,8 @@ exports[`should render correctly in editing mode 1`] = `
         }
       }
       className="ui image centered undefined"
+      raised={true}
+      size="small"
     />
     <CardHeader>
       Test
@@ -815,6 +817,8 @@ exports[`should render correctly in viewing mode 1`] = `
         }
       }
       className="ui image centered undefined"
+      raised={true}
+      size="small"
     />
     <CardHeader>
       Test
@@ -873,6 +877,8 @@ exports[`should render correctly in viewing mode with no allowed methods 1`] = `
         }
       }
       className="ui image centered undefined"
+      raised={true}
+      size="small"
     />
     <CardHeader>
       Test

@@ -30,6 +30,7 @@ exports[`should render correctly 1`] = `
             },
           },
           "addAppPermission": [Function],
+          "error": null,
           "hasAppPermission": [Function],
           "loadPermissions": [Function],
           "permissions": Object {
@@ -37,7 +38,6 @@ exports[`should render correctly 1`] = `
           },
           "removeAppPermission": [Function],
           "savePermissions": [Function],
-          "setPermissions": [Function],
         }
       }
       editingMode={false}
@@ -62,6 +62,7 @@ exports[`should render correctly 1`] = `
             },
           },
           "addAppPermission": [Function],
+          "error": null,
           "hasAppPermission": [Function],
           "loadPermissions": [Function],
           "permissions": Object {
@@ -69,7 +70,6 @@ exports[`should render correctly 1`] = `
           },
           "removeAppPermission": [Function],
           "savePermissions": [Function],
-          "setPermissions": [Function],
         }
       }
       editingMode={false}
@@ -111,6 +111,7 @@ exports[`should render correctly when a dapp is selected 1`] = `
             },
           },
           "addAppPermission": [Function],
+          "error": null,
           "hasAppPermission": [Function],
           "loadPermissions": [Function],
           "permissions": Object {
@@ -118,7 +119,6 @@ exports[`should render correctly when a dapp is selected 1`] = `
           },
           "removeAppPermission": [Function],
           "savePermissions": [Function],
-          "setPermissions": [Function],
         }
       }
       editingMode={false}
@@ -143,6 +143,7 @@ exports[`should render correctly when a dapp is selected 1`] = `
             },
           },
           "addAppPermission": [Function],
+          "error": null,
           "hasAppPermission": [Function],
           "loadPermissions": [Function],
           "permissions": Object {
@@ -150,7 +151,6 @@ exports[`should render correctly when a dapp is selected 1`] = `
           },
           "removeAppPermission": [Function],
           "savePermissions": [Function],
-          "setPermissions": [Function],
         }
       }
       editingMode={true}
