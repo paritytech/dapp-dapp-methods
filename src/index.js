@@ -27,8 +27,8 @@ import 'semantic-ui-css/semantic.min.css';
 
 registerServiceWorker();
 
-const dappsStore = new DappsStore(api);
-const dappsPermissionsStore = new DappsPermissionsStore(api);
+const dappsStore = DappsStore.get(api);
+const dappsPermissionsStore = DappsPermissionsStore.get(api);
 
 ReactDOM.render(
   <ContextProvider api={api}>
