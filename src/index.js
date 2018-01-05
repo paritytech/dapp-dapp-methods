@@ -17,6 +17,7 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 import ContextProvider from '@parity/ui/lib/ContextProvider';
+import { Provider as MobxProvider } from 'mobx-react';
 import DappsStore from '@parity/mobx/lib/dapps/DappsStore';
 import DappsPermissionsStore from '@parity/mobx/lib/dapps/DappsPermissionsStore';
 
@@ -27,15 +28,16 @@ import 'semantic-ui-css/semantic.min.css';
 
 registerServiceWorker();
 
-const dappsStore = DappsStore.get(api);
-const dappsPermissionsStore = DappsPermissionsStore.get(api);
+const rootStore = {
+  dappsStore: DappsStore.get(api),
+  dappsPermissionsStore: DappsPermissionsStore.get(api)
+};
 
 ReactDOM.render(
   <ContextProvider api={api}>
-    <App
-      dappsStore={dappsStore}
-      dappsPermissionsStore={dappsPermissionsStore}
-    />
+    <MobxProvider {...rootStore}>
+      <App />
+    </MobxProvider>
   </ContextProvider>,
   document.querySelector('#root')
 );

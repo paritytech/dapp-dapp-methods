@@ -15,7 +15,7 @@
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
@@ -25,7 +25,7 @@ import Card from 'semantic-ui-react/dist/commonjs/views/Card';
 import DappCard from '../DappCard';
 import styles from './App.css';
 
-class App extends Component {
+export class App extends Component {
   static propTypes = {
     dappsPermissionsStore: PropTypes.object.isRequired
   };
@@ -52,7 +52,7 @@ class App extends Component {
   };
 
   render() {
-    const { dappsStore, dappsPermissionsStore } = this.props;
+    const { dappsStore } = this.props;
 
     return (
       <Page
@@ -69,7 +69,6 @@ class App extends Component {
               key={`${dapp.id}-${index}`}
               editingMode={dapp.id === this.state.selectedDapp}
               dapp={dapp}
-              dappsPermissionsStore={dappsPermissionsStore}
               onEdit={this.handleSelectDapp}
               onToggle={this.handleToggleAppPermissions}
             />
@@ -80,4 +79,4 @@ class App extends Component {
   }
 }
 
-export default observer(App);
+export default inject('dappsStore', 'dappsPermissionsStore')(observer(App));

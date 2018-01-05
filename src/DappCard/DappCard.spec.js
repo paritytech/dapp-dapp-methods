@@ -21,7 +21,7 @@ import { Button, List } from 'semantic-ui-react';
 import DappsPermissionsStore from '@parity/mobx/lib/dapps/DappsPermissionsStore';
 
 import { shallowWithIntl, mountWithIntl } from '../setupTests';
-import DappCard from './DappCard';
+import { DappCard } from './DappCard';
 
 const mockPermissions = { 'shell_loadApp:123': true };
 const mockApi = {
