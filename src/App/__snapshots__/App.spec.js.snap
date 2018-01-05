@@ -41,7 +41,7 @@ exports[`should render correctly 1`] = `
         }
       }
       editingMode={false}
-      key="0"
+      key="123-0"
       onEdit={[Function]}
       onToggle={[Function]}
     />
@@ -73,7 +73,7 @@ exports[`should render correctly 1`] = `
         }
       }
       editingMode={false}
-      key="1"
+      key="456-1"
       onEdit={[Function]}
       onToggle={[Function]}
     />
@@ -122,7 +122,7 @@ exports[`should render correctly when a dapp is selected 1`] = `
         }
       }
       editingMode={false}
-      key="0"
+      key="123-0"
       onEdit={[Function]}
       onToggle={[Function]}
     />
@@ -154,7 +154,7 @@ exports[`should render correctly when a dapp is selected 1`] = `
         }
       }
       editingMode={true}
-      key="1"
+      key="456-1"
       onEdit={[Function]}
       onToggle={[Function]}
     />

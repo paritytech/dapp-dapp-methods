@@ -22,7 +22,7 @@ import { FormattedMessage } from 'react-intl';
 import Page from '@parity/ui/lib/Page';
 import Card from 'semantic-ui-react/dist/commonjs/views/Card';
 
-import DappCard from './DappCard';
+import DappCard from '../DappCard';
 import styles from './App.css';
 
 class App extends Component {
@@ -66,7 +66,7 @@ class App extends Component {
         <Card.Group stackable className={styles.cardGroup}>
           {dappsStore.apps.map((dapp, index) => (
             <DappCard
-              key={index}
+              key={`${dapp.id}-${index}`}
               editingMode={dapp.id === this.state.selectedDapp}
               dapp={dapp}
               dappsPermissionsStore={dappsPermissionsStore}
