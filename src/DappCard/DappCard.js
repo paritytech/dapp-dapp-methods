@@ -15,7 +15,7 @@
 // along with Parity.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { Accordion, Button, Card, List } from 'semantic-ui-react';
 import DappIcon from '@parity/ui/lib/DappIcon';
@@ -24,7 +24,7 @@ import { FormattedMessage } from 'react-intl';
 
 import styles from './DappCard.css';
 
-class DappCard extends Component {
+export class DappCard extends Component {
   static propTypes = {
     dapp: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -161,7 +161,7 @@ class DappCard extends Component {
   }
 }
 
-export default observer(DappCard);
+export default inject('dappsPermissionsStore')(observer(DappCard));
 
 const messages = {
   accounts: {

@@ -20,7 +20,7 @@ import DappsPermissionsStore from '@parity/mobx/lib/dapps/DappsPermissionsStore'
 import DappsStore from '@parity/mobx/lib/dapps/DappsStore';
 
 import { shallowWithIntl } from '../setupTests';
-import App from '../App';
+import { App } from './App';
 import DappCard from '../DappCard';
 
 const mockApps = [{ id: '123', name: '123' }, { id: '456', name: '456' }];
