@@ -23,9 +23,7 @@ import DappsPermissionsStore from '@parity/mobx/lib/dapps/DappsPermissionsStore'
 
 import api from './api';
 import App from './App';
-import style from 'semantic-ui-css/semantic.css';
-
-console.log(style);
+import 'semantic-ui-css/semantic.css';
 
 const rootStore = {
   dappsStore: DappsStore.get(api),
