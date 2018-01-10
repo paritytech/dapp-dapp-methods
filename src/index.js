@@ -23,21 +23,21 @@ import DappsPermissionsStore from '@parity/mobx/lib/dapps/DappsPermissionsStore'
 
 import api from './api';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-import 'semantic-ui-css/semantic.min.css';
+import style from 'semantic-ui-css/semantic.css';
 
-registerServiceWorker();
+console.log(style);
 
 const rootStore = {
   dappsStore: DappsStore.get(api),
   dappsPermissionsStore: DappsPermissionsStore.get(api)
 };
 
-ReactDOM.render(
+const Application = () => (
   <ContextProvider api={api}>
     <MobxProvider {...rootStore}>
       <App />
     </MobxProvider>
-  </ContextProvider>,
-  document.querySelector('#root')
+  </ContextProvider>
 );
+
+export default Application;
