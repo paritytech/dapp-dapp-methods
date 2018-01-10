@@ -12,14 +12,7 @@
     "url": "git+https://github.com/paritytech/dapp-dapp-methods.git"
   },
   "homepage": "./",
-  "proxy": {
-    "/parity-utils": {
-      "target": "http://127.0.0.1:3000"
-    },
-    "/api": {
-      "target": "http://127.0.0.1:3000"
-    }
-  },
+  "proxy": "http://127.0.0.1:8545",
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
@@ -30,12 +23,14 @@
   },
   "keywords": [],
   "scripts": {
-    "start": "parity-react-scripts start",
-    "start:old": "react-scripts start",
     "build": "parity-react-scripts build",
     "lint": "parity-react-scripts lint",
-    "publish": "parity-react-scripts publish",
-    "test": "npm run lint && parity-react-scripts test"
+    "lint:css": "parity-react-scripts lint-css",
+    "lint:js": "parity-react-scripts lint-js",
+    "release": "parity-react-scripts release",
+    "start": "parity-react-scripts start",
+    "start:old": "react-scripts start",
+    "test": "parity-react-scripts test"
   },
   "dependencies": {
     "@parity/api": "^2.1.14",
@@ -55,6 +50,6 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.0",
-    "parity-react-scripts": "github:paritytech/parity-react-scripts"
+    "parity-react-scripts": "github:paritytech/parity-react-scripts#d828b63"
   }
 }
