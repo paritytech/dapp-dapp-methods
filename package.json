@@ -50,6 +50,6 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.0",
-    "parity-react-scripts": "github:paritytech/parity-react-scripts#d828b63"
+    "parity-react-scripts": "github:paritytech/parity-react-scripts#57d870c"
   }
 }

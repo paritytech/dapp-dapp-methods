@@ -6173,9 +6173,9 @@ param-case@2.1.x:
   dependencies:
     no-case "^2.2.0"
 
-"parity-react-scripts@github:paritytech/parity-react-scripts#d828b63":
-  version "0.10.0"
-  resolved "https://codeload.github.com/paritytech/parity-react-scripts/tar.gz/d828b63596271c3e86b2cf77c00d16917cea1ee1"
+"parity-react-scripts@github:paritytech/parity-react-scripts#57d870c":
+  version "0.11.0"
+  resolved "https://codeload.github.com/paritytech/parity-react-scripts/tar.gz/57d870c6ca7e16463aff27d7c530c0dfba946e26"
   dependencies:
     "@parity/api" "2.1.14"
     "@parity/shared" "2.2.14"
